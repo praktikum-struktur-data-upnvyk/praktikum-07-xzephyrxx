@@ -13,7 +13,7 @@
 //     Ceritanya          — apa yang sedang terjadi, dan apa yang diminta
 //     Parameternya       — arti setiap parameter, satu per satu
 //     Contoh             — contoh nyata beserta hasil yang benar
-//     Yang perlu diingat — hal khusus yang ikut dinilai
+//     Yang perlu diingat — hal khusus yang ikut divalue
 //
 // Seluruhnya ada 3 soal dan 5 fungsi:
 //
@@ -67,6 +67,11 @@ using namespace std;
 //     preorder(&satu);      // mencetak:  42
 // =============================================================================
 void preorder(const Node* root) {
+    if (root != nullptr) {
+        cout << root->data << " ";
+        preorder(root->left);
+        preorder(root->right);
+    }
 }
 
 // =============================================================================
@@ -90,6 +95,11 @@ void preorder(const Node* root) {
 //     inorder(NULL);     // tidak mencetak apa pun
 // =============================================================================
 void inorder(const Node* root) {
+    if (root != nullptr) {
+        inorder(root->left);
+        cout << root->data << " ";
+        inorder(root->right);
+    }
 }
 
 // =============================================================================
@@ -114,6 +124,11 @@ void inorder(const Node* root) {
 //     postorder(NULL);   // tidak mencetak apa pun
 // =============================================================================
 void postorder(const Node* root) {
+    if (root != nullptr) {
+        postorder(root->left);
+        postorder(root->right);
+        cout << root->data << " ";
+    }
 }
 
 // =============================================================================
@@ -140,7 +155,17 @@ void postorder(const Node* root) {
 //     clear(root);              // aman, tidak terjadi apa-apa
 // =============================================================================
 void clear(Node*& root) {
+        if (root == NULL) {
+        return;
+    }
+    
+    clear(root->left);
+    clear(root->right);
+    
+    delete root;
+    root = NULL;
 }
+
 
 // =============================================================================
 // SOAL 3 — jumlahDaun                          SOAL CERITA             15 poin
@@ -177,11 +202,20 @@ void clear(Node*& root) {
 //     3                           masih punya satu cabang)
 // =============================================================================
 int jumlahDaun(const Node* root) {
+        if (root == NULL) {
+        return 0;
+    }
+    
+    if (root->left == NULL && root->right == NULL) {
+        return 1;
+    }
+    
+    return jumlahDaun(root->left) + jumlahDaun(root->right);
     return 0;
 }
 
 // =============================================================================
-// MAIN() — program Anda sendiri. TIDAK dinilai, bebas diubah.
+// MAIN() — program Anda sendiri. TIDAK divalue, bebas diubah.
 // =============================================================================
 // Di bawah ini file ini menjadi program C++ biasa. Tekan Run di VS Code, atau
 // jalankan lewat terminal:
@@ -191,21 +225,21 @@ int jumlahDaun(const Node* root) {
 //
 // Isinya boleh Anda ganti total: tambah cin, ubah bentuk tree-nya, buat tree
 // yang menjulur lurus ke bawah, tambah cabang baru, tulis fungsi tampilan
-// buatan Anda sendiri. Tidak ada satu pun di bawah sini yang mempengaruhi nilai
+// buatan Anda sendiri. Tidak ada satu pun di bawah sini yang mempengaruhi value
 // Anda.
 //
 // main() ini sengaja hanya MEMANGGIL fungsi-fungsi Anda, lalu menampilkan apa
 // yang dilaporkan fungsi-fungsi itu. Selama sebuah fungsi belum Anda isi,
-// bagian yang bersangkutan akan tampak kosong atau bernilai 0 — itu wajar.
+// bagian yang bersangkutan akan tampak kosong atau bervalue 0 — itu wajar.
 // Kerjakan satu soal, jalankan lagi, lalu perhatikan bagian mana yang mulai
 // berubah.
 //
 // SATU ATURAN YANG TIDAK BOLEH DILANGGAR
 // --------------------------------------
 // cin hanya boleh dipakai DI DALAM main() ini. JANGAN menaruh cin di dalam
-// keenam fungsi di atas. Saat menilai, checker memanggil fungsi-fungsi itu
+// keenam fungsi di atas. Saat mevalue, checker memanggil fungsi-fungsi itu
 // tanpa memberi masukan apa pun, jadi cin di sana akan membaca sampah — dan
-// nilai Anda berubah-ubah setiap kali dinilai, dari kode yang sama persis.
+// value Anda berubah-ubah setiap kali divalue, dari kode yang sama persis.
 //
 // Keenam fungsi di atas menerima datanya lewat PARAMETER. Itulah gunanya
 // parameter: satu fungsi yang sama bisa dipakai berkali-kali dengan tree yang
@@ -272,7 +306,7 @@ static void tampilkanHitungan(const Node* root) {
 int main() {
     cout << "==========================================\n";
     cout << " Latihan — Binary Tree dan Traversal\n";
-    cout << " (bagian ini tidak ikut dinilai)\n";
+    cout << " (bagian ini tidak ikut divalue)\n";
     cout << "==========================================\n";
 
     // -------------------------------------------------------------------------
